@@ -9,6 +9,7 @@ import MoviePage from "./pages/movieDetailsPage";
 import FavoriteMoviesPage from "./pages/favoriteMoviesPage";
 import MovieReviewPage from "./pages/movieReviewPage";
 import SiteHeader from './components/siteHeader';
+import MoviesContextProvider from "./contexts/moviesContext";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -23,8 +24,10 @@ const queryClient = new QueryClient({
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
-    <BrowserRouter>
-      <SiteHeader />     
+      <BrowserRouter>
+        <SiteHeader />
+        <MoviesContextProvider>
+            {" "}    
       <Switch>
         <Route exact path="/movies/upcoming" component={UpcomingMoviesPage} />
         <Route exact path="/movies/favorites" component={FavoriteMoviesPage} />
@@ -33,8 +36,9 @@ const App = () => {
         <Route exact path="/" component={HomePage} />
         <Redirect from="*" to="/" />
       </Switch>
-    </BrowserRouter>
-    <ReactQueryDevtools initialIsOpen={false} />
+      </MoviesContextProvider>
+      </BrowserRouter>
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 };
